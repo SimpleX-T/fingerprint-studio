@@ -15,8 +15,9 @@ Item {
     property string deviceName: "No supported reader detected"
     property string lastUpdated: ""
     property var knownReaders: ["06cb:00b7", "138a:00ab"]
-    property color foreground: typeof bar !== "undefined" ? bar.foreground : "#e6e1e8"
-    property color urgent: typeof bar !== "undefined" ? bar.urgent : "#f1b5a9"
+    property color themeForeground: typeof bar !== "undefined" ? bar.foreground : "#e8e5ec"
+    property color themeBackground: typeof bar !== "undefined" ? bar.background : "#1d1c20"
+    property color themeUrgent: typeof bar !== "undefined" ? bar.urgent : "#f0b7ad"
 
     function openStudio() {
         if (studioPanel.opened) studioPanel.close()
@@ -30,7 +31,7 @@ Item {
     Rectangle {
         anchors.fill: parent
         radius: 8
-        color: mouse.containsMouse ? Qt.rgba(1, 1, 1, 0.10) : "transparent"
+        color: mouse.containsMouse ? Qt.lighter(root.themeBackground, 1.24) : "transparent"
         Behavior on color { ColorAnimation { duration: 120 } }
     }
 
@@ -41,14 +42,14 @@ Item {
 
         Text {
             text: root.state === "checking" ? "◌" : "◉"
-            color: root.ready ? "#8bcf8b" : root.state === "checking" ? root.foreground : root.urgent
+            color: root.ready ? root.themeForeground : root.state === "checking" ? root.themeForeground : root.themeUrgent
             font.pixelSize: 14
             font.weight: Font.DemiBold
         }
 
         Text {
             text: root.ready ? "Ready" : root.state === "checking" ? "Checking" : "Fingerprint"
-            color: root.foreground
+            color: root.themeForeground
             font.pixelSize: 12
             font.weight: Font.Medium
         }
@@ -106,5 +107,8 @@ Item {
     FingerprintPanel {
         id: studioPanel
         service: root
+        themeForeground: root.themeForeground
+        themeBackground: root.themeBackground
+        themeUrgent: root.themeUrgent
     }
 }

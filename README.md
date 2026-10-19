@@ -11,6 +11,18 @@ It is deliberately **not** a driver installer or repair tool. The plugin only re
 - Checks that both `python3-validity` and `open-fprintd` are active every 30 seconds.
 - Links to the upstream investigation and diagnostics; it does not upload hardware data.
 
+## Agent troubleshooting
+
+The plugin ships a portable agent skill and a versioned JSON probe. Install the skill once after adding the plugin, then any Omarchy-compatible agent can start from a safe diagnosis rather than guessing:
+
+```bash
+mkdir -p ~/.agents/skills
+ln -s ~/.config/omarchy/plugins/io.github.simplex-t.fingerprint-studio/skills/fingerprint-studio \
+  ~/.agents/skills/fingerprint-studio
+```
+
+See [agent integration](docs/agent-integration.md) for its safety boundaries and supported agent-harness locations.
+
 ## Install
 
 ```bash

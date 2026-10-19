@@ -15,6 +15,14 @@ while IFS= read -r entry; do
   test -f "$root/$entry"
 done < <(jq -r '.entryPoints[]' "$root/manifest.json")
 
+bash "$root/scripts/probe.sh" --json | jq -e '
+  .schema_version == 1
+  and (.reader | type == "string")
+  and (.python3_validity | type == "string")
+  and (.open_fprintd | type == "string")
+  and (.status | IN("ready", "attention", "unsupported"))
+' >/dev/null
+
 if find "$root" -type l -print -quit | grep -q .; then
   echo "Plugin packages must not contain symlinks." >&2
   exit 1
