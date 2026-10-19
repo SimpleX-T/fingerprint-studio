@@ -11,17 +11,23 @@ It is deliberately **not** a driver installer or repair tool. The plugin only re
 - Checks that both `python3-validity` and `open-fprintd` are active every 30 seconds.
 - Links to the upstream investigation and diagnostics; it does not upload hardware data.
 
-## Install for development
+## Install
+
+```bash
+omarchy plugin add https://github.com/SimpleX-T/fingerprint-studio.git --enable
+```
+
+The plugin is installed disabled by default unless `--enable` is supplied, so its source can be reviewed first. Remove it with:
+
+```bash
+omarchy plugin remove io.github.simplex-t.fingerprint-studio
+```
+
+## Develop locally
 
 ```bash
 omarchy plugin validate .
 omarchy plugin add "$PWD" --enable
-```
-
-Remove it with:
-
-```bash
-omarchy plugin remove io.github.simplex-t.fingerprint-studio
 ```
 
 ## Verify before installing

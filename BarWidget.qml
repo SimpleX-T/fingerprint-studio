@@ -47,7 +47,7 @@ Item {
         }
 
         Text {
-            text: root.ready ? "Touch ID" : root.state === "checking" ? "Checking" : "Fingerprint"
+            text: root.ready ? "Ready" : root.state === "checking" ? "Checking" : "Fingerprint"
             color: root.foreground
             font.pixelSize: 12
             font.weight: Font.Medium
